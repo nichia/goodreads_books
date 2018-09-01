@@ -1,3 +1,4 @@
 class GoodreadsBooks::Book
 
+
 end

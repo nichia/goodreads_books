@@ -4,4 +4,4 @@ require "bundler/setup"
 
 require_relative '../lib/goodreads_books'
 
-# GoodreadsBooks::CLI.new.call
+GoodreadsBooks::CLI.new.call

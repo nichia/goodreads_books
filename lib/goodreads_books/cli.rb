@@ -4,6 +4,8 @@ class GoodreadsBooks::CLI
     puts "Loading Goodreads Choice Awards Winners..."
     books = GoodreadsBooks::Scraper.new
     books.scrape_books
-    
+
   end #-- call --
+
+  
 end
