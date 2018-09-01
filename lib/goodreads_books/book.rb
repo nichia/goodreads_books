@@ -1,0 +1,3 @@
+class GoodreadsBooks::Book
+
+end
