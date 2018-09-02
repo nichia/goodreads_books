@@ -18,11 +18,11 @@ class GoodreadsBooks::Scraper
   end #-- save --
 
   def self.find_or_create_by_year(awards_year = nil)
-    if !(scraped = find_by_year(awards_year))
-       scraped = create(awards_year)
-       scraped.scrape_books
+    if !(choice_awards = find_by_year(awards_year))
+       choice_awards = create(awards_year)
+       choice_awards.scrape_books
     end
-    find_by_year(scraped.awards_year)
+    find_by_year(choice_awards.awards_year)
   end #-- self.find_or_create_by_year --
 
   def self.find_by_year(awards_year = nil)
@@ -30,10 +30,9 @@ class GoodreadsBooks::Scraper
   end #-- self.find_by_year --
 
   def self.create(awards_year = nil)
-    scraped = new(awards_year)
-    scraped.save
-
-    # new(awards_year).tap { |s| s.save }
+    #choice_awards = new(awards_year)
+    #choice_awards.save
+    choice_awards = new(awards_year).tap { |s| s.save }
 
     awards_page = "/choiceawards"
 
@@ -41,15 +40,15 @@ class GoodreadsBooks::Scraper
     # goodreads.com defaults to latest choice awards
     # /best-books-#{latest awards year}"
     if awards_year == nil
-      scraped.main_url = "#{BASE_URL}#{awards_page}"
-      doc = Nokogiri::HTML(open(scraped.main_url))
-      scraped.awards_year = doc.css("head title").text.split(" ")[2].to_i
+      choice_awards.main_url = "#{BASE_URL}#{awards_page}"
+      doc = Nokogiri::HTML(open(choice_awards.main_url))
+      choice_awards.awards_year = doc.css("head title").text.split(" ")[2].to_i
     else
-      scraped.main_url = "#{BASE_URL}#{awards_page}/best-books-#{awards_year}"
-      scraped.awards_year = awards_year
+      choice_awards.main_url = "#{BASE_URL}#{awards_page}/best-books-#{awards_year}"
+      choice_awards.awards_year = awards_year
     end
 
-    scraped # return instance of scraper
+    choice_awards # return instance of scraper
   end #-- self.create --
 
   def scrape_books
@@ -85,7 +84,7 @@ class GoodreadsBooks::Scraper
 
       GoodreadsBooks::Book.new_from_web_page(book_details)
     end
-    binding.pry
+    #binding.pry
   end #-- scrape_books --
 
   private
