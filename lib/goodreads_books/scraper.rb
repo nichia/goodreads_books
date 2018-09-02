@@ -65,22 +65,24 @@ class GoodreadsBooks::Scraper
       cate_name = category.css("h4").text
       cate_url = category.css("a").attr("href").text
 
-      #cate_title = category.css("img").attr("alt").text
+      cate_title = category.css("img").attr("alt").text
       #cate_book_id = category.css("input")[2].attr("value")
       # don't need to keep book_id
 
       # is self.scrape_book_details(cate_url) more appropriate?
-      details = scrape_book_details("#{BASE_URL}#{cate_url}")
+      #details = scrape_book_details("#{BASE_URL}#{cate_url}")
 
       # for each winner element, return the book_details hash
       book_details = {
         :awards_year => @awards_year,
         :category => cate_name,
-        :title => details[:title],
-        :author => details[:author],
-        :vote => details[:vote],
-        :description => details[:description],
-        :url => "#{BASE_URL}#{details[:book_url]}"
+        :title => cate_title,
+        :cate_url => "#{BASE_URL}#{cate_url}",
+        #:title => details[:title],
+        #:author => details[:author],
+        #:vote => details[:vote],
+        #:description => details[:description],
+        #:url => "#{BASE_URL}#{details[:book_url]}"
       }
 
       #binding.pry

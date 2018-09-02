@@ -64,7 +64,8 @@ class GoodreadsBooks::CLI
     puts ""
 
     GoodreadsBooks::Book.all_by_year(@choice_awards.awards_year).each.with_index(1) do |book, index|
-      puts "#{index}. #{book.title} - #{book.author} - #{book.category}"
+      puts "#{index}. #{book.category}: #{book.title}"
+      #puts "#{index}. #{book.category}: #{book.title} - #{book.author}"
     end
   end #-- display_books --
 
@@ -73,12 +74,12 @@ class GoodreadsBooks::CLI
     puts "---------- #{@choice_awards.awards_year} BEST #{book.category.upcase} Winner - #{book.vote} votes----------"
     puts "Title:        #{book.title}"
     puts "Author:       #{book.author}"
-    puts "Description:  #{book.description}"
-    #puts "URL:          #{book.url}"
+    puts "URL:          #{book.url}"
+    puts "---------- Description ----------"
+    puts "#{book.description}"
 
     puts ""
-    #puts "Press enter to continue or 'exit' to end the application.".colorize(:blue)
-    puts "Would you like to visit Goodreads website to view this book? Enter Y or N or 'exit'".colorize(:blue)
+    puts "Would you like to visit Goodreads website to view this book? Enter Y or N".colorize(:blue)
     input = gets.strip.downcase
 
     if input.downcase == "y"
