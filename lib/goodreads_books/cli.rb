@@ -44,10 +44,6 @@ class GoodreadsBooks::CLI
         book = GoodreadsBooks::Book.all_by_year(@choice_awards.awards_year)[input.to_i - 1]
         view_book(book)
 
-        puts ""
-        puts "Press enter to continue or 'exit' to end the application.".colorize(:blue)
-        input = gets.strip.downcase
-
       elsif input.to_i.between?(2010, Time.now.year - 1)
         # This application only works for year 2010 to current year - 1.
         # Goodreads Choice Awards Winner 2009 page setup differs from 2010 onwards.
@@ -74,10 +70,19 @@ class GoodreadsBooks::CLI
 
   def view_book(book)
     puts ""
-    puts "---------- #{@choice_awards.awards_year} Best #{book.category} Winner #{book.vote} votes----------"
+    puts "---------- #{@choice_awards.awards_year} BEST #{book.category.upcase} Winner - #{book.vote} votes----------"
     puts "Title:        #{book.title}"
     puts "Author:       #{book.author}"
     puts "Description:  #{book.description}"
-    puts "Click url:    <%= auto_link(#{book.url}) %>"
+    #puts "URL:          #{book.url}"
+
+    puts ""
+    #puts "Press enter to continue or 'exit' to end the application.".colorize(:blue)
+    puts "Would you like to visit Goodreads website to view this book? Enter Y or N or 'exit'".colorize(:blue)
+    input = gets.strip.downcase
+
+    if input.downcase == "y"
+      system("open #{book.url}")
+    end
   end #-- view_book --
 end
