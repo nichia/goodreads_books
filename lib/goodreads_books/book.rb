@@ -24,12 +24,12 @@ class GoodreadsBooks::Book
     self.class.all << self
   end #-- save --
 
-  def self.list_by_year(awards_year)
+  def self.all_by_year(awards_year)
     all.select { |book| book.awards_year == awards_year }
   end #-- find_by_year --
 
   def self.find_by_year_and_index(awards_year, index)
-    books = list_by_year(awards_year)
+    books = all_by_year(awards_year)
     books[index]
   end #-- find_by_year_and_index --
 end
