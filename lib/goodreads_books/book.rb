@@ -1,8 +1,9 @@
 class GoodreadsBooks::Book
   attr_accessor :awards_year, :category, :title, :author, :vote, :description, :cate_url, :url
 
-  @@all = []
   BASE_URL = "https://www.goodreads.com"
+  
+  @@all = []
 
   def initialize(attributes)
     attributes.each do |attr_name, attr_value|
@@ -11,8 +12,6 @@ class GoodreadsBooks::Book
   end #-- initialize --
 
   def self.new_from_web_page(book_hash)
-    #puts "#{self.all.count} - #{book_hash}"
-    #binding.pry
     book = new(book_hash)
     book.save
   end #-- self.new_from_web_page --
@@ -53,11 +52,11 @@ class GoodreadsBooks::Book
     # Next level of scraping (get details of winner book within each category_url)
     book_doc = Nokogiri::HTML(open(self.cate_url))
 
+    self.vote = book_doc.css(".gcaRightContainer .gcaWinnerHeader").text.split(" ")[1]
     self.author = book_doc.css(".gcaRightContainer h3 .gcaAuthor a.authorName").text
     self.url = "#{BASE_URL}#{book_doc.css(".gcaRightContainer h3 a.winningTitle").attr("href").text}"
     self.description = book_doc.css(".gcaRightContainer .readable.stacked").text.strip
-    self.vote = book_doc.css(".gcaRightContainer .gcaWinnerHeader").text.split(" ")[1]
 
-    binding.pry
+    #binding.pry
   end #-- get_book_details --
 end
