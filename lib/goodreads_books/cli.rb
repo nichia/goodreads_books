@@ -74,7 +74,7 @@ class GoodreadsBooks::CLI
 
   def view_book(book)
     puts ""
-    puts "---------- #{@choice_awards.awards_year} Best #{book.category} ----------"
+    puts "---------- #{@choice_awards.awards_year} Best #{book.category} Winner #{book.vote} votes----------"
     puts "Title:        #{book.title}"
     puts "Author:       #{book.author}"
     puts "Description:  #{book.description}"

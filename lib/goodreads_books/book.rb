@@ -1,5 +1,5 @@
 class GoodreadsBooks::Book
-  attr_accessor :awards_year, :category, :title, :author, :description, :url
+  attr_accessor :awards_year, :category, :title, :author, :vote, :description, :url
 
   @@all = []
 

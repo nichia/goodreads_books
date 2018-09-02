@@ -78,10 +78,12 @@ class GoodreadsBooks::Scraper
         :category => cate_name,
         :title => details[:title],
         :author => details[:author],
+        :vote => details[:vote],
         :description => details[:description],
         :url => "#{BASE_URL}#{details[:book_url]}"
       }
 
+      #binding.pry
       GoodreadsBooks::Book.new_from_web_page(book_details)
     end
     #binding.pry
@@ -94,6 +96,7 @@ class GoodreadsBooks::Scraper
 
       #binding.pry
       details = {
+        :vote => book_doc.css(".gcaRightContainer .gcaWinnerHeader").text.split(" ")[1],
         :author => book_doc.css(".gcaRightContainer h3 .gcaAuthor a.authorName").text,
         :title => book_doc.css(".gcaRightContainer h3 a.winningTitle").text,
         :book_url => book_doc.css(".gcaRightContainer h3 a.winningTitle").attr("href").text,
