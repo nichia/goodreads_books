@@ -1,56 +1,66 @@
 class GoodreadsBooks::CLI
-  @scrape_year = 0
+
+  def initialize
+    @@choice_awards = nil
+  end
 
   def call(awards_year = nil)
-    puts "Loading #{awards_year} Winners of Goodreads Choice Awards Books..."
-    # find_or_create_by_year - initial with awards_year = nil
-    winners = GoodreadsBooks::Scraper.find_or_create_by_year(awards_year)
-    binding.pry
-    main_menu(winners)
+    if awards_year == nil
+      puts "Loading The Latest Winners of Goodreads Choice Awards Books..."
+    else
+      puts "Loading The Winners of #{awards_year} Goodreads Choice Awards Books..."
+    end
+
+    @choice_awards = GoodreadsBooks::Scraper.find_or_create_by_year(awards_year)
+
+    main_menu
+
   end #-- call --
 
-  def main_menu(winners)
+  def main_menu
     system "clear"
 
     input = nil
     while input != "exit"
-      list_books(winners)
+      list_books
 
       puts ""
       puts "Enter a number to view details of the book, or"
       puts "select another Choice Awards year (2010 to previous year)."
-      puts "You may enter 'exit' to end the application."
+      puts "Type 'exit' to end the application."
       input = gets.strip
+
       if input.downcase == "exit"
         puts ""
         puts "Thank you for using Goodreads Choice Awards Books."
-      elsif input.to_i.between?(1, GoodreadsBooks::Book.all_by_year(winners.awards_year).count)
-        #book = GoodreadsBooks::Book.find_by_year_and_index(winners.awards_year, input.to_i - 1)
-        book = GoodreadsBooks::Book.all_by_year(winners.awards_year)[input.to_i - 1]
-        view_book(winners, book)
+      elsif input.to_i.between?(1, GoodreadsBooks::Book.all_by_year(@choice_awards.awards_year).count)
+        book = GoodreadsBooks::Book.all_by_year(@choice_awards.awards_year)[input.to_i - 1]
+        view_book(book)
       elsif input.to_i.between?(2010, Time.now.year - 1)
+        # This application only works for year 2010 to current year - 1.
+        # Goodreads Choice Awards Winner 2009 page setup differs from 2010 onwards.
         call(input.to_i)
       else
         puts ""
         puts "I don't understand that answer."
       end
+
     end
   end #-- main_menu --
 
-  def list_books(winners)
-    #binding.pry
+  def list_books
     puts ""
-    puts "#{winners.awards_year} Goodreads Choice Awards Books".colorize(:blue)
-    puts ""
+    puts "---------- #{@choice_awards.awards_year} Goodreads Choice Awards Books ----------"
+    puts "           =================================="
 
-    GoodreadsBooks::Book.all_by_year(winners.awards_year).each.with_index(1) do |book, index|
+    GoodreadsBooks::Book.all_by_year(@choice_awards.awards_year).each.with_index(1) do |book, index|
       puts "#{index}. #{book.title} - #{book.author} - #{book.category}"
     end
   end #-- display_books --
 
-  def view_book(winners, book)
+  def view_book(book)
     puts ""
-    puts "---------- #{winners.awards_year} Best #{book.category} ----------"
+    puts "---------- #{@choice_awards.awards_year} Best #{book.category} ----------".colorize(:blue)
     puts "Title:        #{book.title}"
     puts "Author:       #{book.author}"
     puts "Description:  #{book.description}"

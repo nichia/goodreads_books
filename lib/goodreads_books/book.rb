@@ -27,9 +27,4 @@ class GoodreadsBooks::Book
   def self.all_by_year(awards_year)
     all.select { |book| book.awards_year == awards_year }
   end #-- find_by_year --
-
-  def self.find_by_year_and_index(awards_year, index)
-    books = all_by_year(awards_year)
-    books[index]
-  end #-- find_by_year_and_index --
 end

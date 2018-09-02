@@ -18,7 +18,6 @@ class GoodreadsBooks::Scraper
   end #-- save --
 
   def self.find_or_create_by_year(awards_year = nil)
-    #self.find_by_year(awards_year) || create(awards_year)
     if !(scraped = find_by_year(awards_year))
        scraped = create(awards_year)
        scraped.scrape_books
