@@ -36,10 +36,10 @@ PLATFORMS
 
 DEPENDENCIES
   bundler (~> 1.16)
-  colorize
+  colorize (~> 0)
   goodreads-books!
   nokogiri
-  pry
+  pry (~> 0)
   rake (~> 10.0)
   rspec (~> 3.0)
 
