@@ -7,18 +7,6 @@ Welcome to GoodreadsBooks CLI gem! This is a command line application that lists
 
 ## Installation
 
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'goodreads-books'
-```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
     $ gem install goodreads-books
 
 ## Usage
