@@ -11,8 +11,9 @@ Welcome to GoodreadsBooks CLI gem! This is a command line application that lists
 
 ## Usage
 
-Execute the following command and follow the prompts.
-```goodreads-books```
+Type the below command and follow the prompts.
+
+    $ goodreads-books
 
 
 ## Development
