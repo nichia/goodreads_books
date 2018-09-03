@@ -1,13 +1,16 @@
 # GoodreadsBooks
 
-Welcome to GoodreadsBooks CLI gem is a command line application that lists the yearly Goodreads Choice Awards books. The application will list the latest winning books from Goodreads website https://www.goodreads.com/choiceawards.
+Welcome to GoodreadsBooks CLI gem! This is a command line application that lists each year's Goodreads Choice Awards Winning books. By default, the app will list the latest category of award winning books from Goodreads website https://www.goodreads.com/choiceawards. Users then have the option to:
+  1) view a different year's Choice Awards Winners, ranging from 2010 until the latest award year, which is usually the previous calendar year
+  2) detail view of the award winning book
+  3) view the award winning book details on Goodreads website
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'goodreads_books'
+gem 'goodreads-books'
 ```
 
 And then execute:
@@ -16,7 +19,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install goodreads_books
+    $ gem install goodreads-books
 
 ## Usage
 
