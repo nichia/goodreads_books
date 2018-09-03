@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require "goodreads_books/version"
 
 Gem::Specification.new do |spec|
-  spec.name          = "goodreads_books"
+  spec.name          = "goodreads-books"
   spec.version       = GoodreadsBooks::VERSION
   spec.authors       = ["Ni Chia"]
   spec.email         = ["nichia@gmail.com"]
