@@ -6,11 +6,11 @@ require "goodreads_books/version"
 Gem::Specification.new do |spec|
   spec.name          = "goodreads_books"
   spec.version       = GoodreadsBooks::VERSION
-  spec.authors       = ["<nichia>"]
-  spec.email         = ["<nichia@gmail.com>"]
+  spec.authors       = ["Ni Chia"]
+  spec.email         = ["nichia@gmail.com"]
 
-  spec.summary       = %q{Goodreads Choice Awards Winners}
-  spec.description   = %q{Goodreads Choice Awards Winners}
+  spec.summary       = %q{Goodreads Choice Awards Books}
+  spec.description   = %q{Goodreads CLI gem is a command line application that lists the yearly Goodreads Choice Awards Winning Books.}
   spec.homepage      = "https://github.com/nichia/goodreads_books.git"
   spec.license       = "MIT"
 

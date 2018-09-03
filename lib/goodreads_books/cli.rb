@@ -69,7 +69,7 @@ class GoodreadsBooks::CLI
     puts ""
 
     GoodreadsBooks::Book.all_by_year(@choice_awards.awards_year).each.with_index(1) do |book, index|
-      puts "#{index}. #{book.category}: #{book.title}"
+      puts "#{index}. #{book.category} - #{book.title}"
     end
   end #-- display_books --
 
@@ -81,7 +81,7 @@ class GoodreadsBooks::CLI
     puts "Author:       #{book.author}"
     puts "Votes:        #{book.vote}"
     puts ""
-    puts "--- Description ---"
+    puts "       --- Overview ---"
     puts "#{book.description}"
 
     puts ""

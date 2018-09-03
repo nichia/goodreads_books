@@ -2,7 +2,7 @@ class GoodreadsBooks::Book
   attr_accessor :awards_year, :category, :title, :author, :vote, :description, :cate_url, :url
 
   BASE_URL = "https://www.goodreads.com"
-  
+
   @@all = []
 
   def initialize(attributes)
@@ -59,4 +59,12 @@ class GoodreadsBooks::Book
 
     #binding.pry
   end #-- get_book_details --
+
+  def self.populate_book_details(award_year)
+    all_by_year(awards_year).each do |book|
+      book.get_book_details
+    end
+    #binding.pry
+  end #-- self.populate_book_details --
+
 end
