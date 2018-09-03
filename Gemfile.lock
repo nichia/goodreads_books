@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    goodreads_books (0.1.0)
+    goodreads-books (0.1.0)
 
 GEM
   remote: https://rubygems.org/
@@ -37,7 +37,7 @@ PLATFORMS
 DEPENDENCIES
   bundler (~> 1.16)
   colorize
-  goodreads_books!
+  goodreads-books!
   nokogiri
   pry
   rake (~> 10.0)
