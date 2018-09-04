@@ -33,10 +33,11 @@ class GoodreadsBooks::Scraper
   def self.create(awards_year = nil)
     #choice_awards = new(awards_year)
     #choice_awards.save
+    #replaced with one line of code below using .tap method
     choice_awards = new(awards_year).tap { |s| s.save }
 
     # if awards_year is missing from the url,
-    # goodreads.com defaults to latest choice awards
+    # goodreads.com defaults to latest choice awards year
     # /best-books-#{latest awards year}"
     if awards_year == nil
       choice_awards.main_url = "#{BASE_URL}#{PAGE_URL}"
@@ -58,7 +59,6 @@ class GoodreadsBooks::Scraper
       cate_name = category.css("h4").text
       cate_url = category.css("a").attr("href").text
       cate_title = category.css("img").attr("alt").text
-      # cate_book_id = category.css("input")[2].attr("value") # don't need to keep book_id
 
       # for each winner element, assemble the book_details hash
       book_details = {

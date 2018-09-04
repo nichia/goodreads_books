@@ -81,7 +81,7 @@ class GoodreadsBooks::CLI
     puts "Author:       #{book.author}"
     puts "Votes:        #{book.vote}"
     puts ""
-    puts "       --- Overview ---"
+    puts "       --- Description ---"
     puts "#{book.description}"
 
     puts ""
