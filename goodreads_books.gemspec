@@ -37,9 +37,10 @@ Gem::Specification.new do |spec|
     "config/environment.rb"
   ]
 
-  spec.bindir        = "bin"
-  spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
+  #spec.bindir        = "bin"
+  #spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   #spec.require_paths = ["lib"]
+  spec.executables << "goodreads-books"
   spec.require_paths = ["lib", "lib/goodreads_books"]
 
   spec.add_development_dependency "bundler", "~> 1.16"
