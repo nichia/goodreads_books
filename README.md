@@ -1,9 +1,11 @@
 # GoodreadsBooks
 
-Welcome to GoodreadsBooks CLI gem! This is a command line application that lists each year's Goodreads Choice Awards Winning books. By default, the app will list the latest category of award winning books from Goodreads website https://www.goodreads.com/choiceawards. Users then have the option to:
-  1) view a different year's Choice Awards Winners, ranging from 2010 until the latest award year, which is usually the previous calendar year
-  2) detail view of the award winning book
-  3) view the award winning book details on Goodreads website
+Welcome to GoodreadsBooks CLI gem! This is a command line application that lists books that are Winners of Goodreads Choice Awards. By default, the app will list the most recent choice awards winning books for each book category from Goodreads web page https://www.goodreads.com/choiceawards.
+
+Users then have the option to:
+  1) select a different Choice Awards year (awards year are from 2010 until the most recent year, which is usually the previous calendar year)
+  2) get a detail view of the awards winning book
+  3) open up the book information page on Goodreads.com website
 
 ## Installation
 

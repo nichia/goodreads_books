@@ -6,7 +6,7 @@ Specs:
 
 # CLI Project Requirement Review Checklist
 This form reviews all requirements in the spec.md form, as well as project standards set out in earlier in the course. In this lesson you're going to build an application that provides a Command Line Interface (CLI) to an external data source. The CLI will be composed of an Object Oriented Ruby application.
-* Required
+* Required *
 ## Email address *
   ```nichia@gmail.com```
 ## README file contains the following sections: *

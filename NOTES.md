@@ -1,15 +1,10 @@
 # GoodreadsBooks
 
-Goodreads CLI gem is a command line application that lists the yearly Goodreads Choice Awards books. The application will list the latest winning books from Goodreads website https://www.goodreads.com/choiceawards.
+Goodreads CLI data gem app is an app that lists books that are Winners of Goodreads Choice Awards from Goodreads web page https://www.goodreads.com/choiceawards.
 
-Users have the option to :
-1) enter a corresponding number to view details of a book. This displays the associated details of the book and user can choose to open up a Goodreads website link to read up more details/reviews of the book, or go back to the previous menu listing.
-2) enter a different year to view a list of that year's choice award winning books which will be listed as in option (1).
-3) exit the application.
+This app is the first project for Full stack web development curriculum at Flatiron School. The project requirements is to build a Ruby gem that provides a Command Line Interface (CLI) to an external data source. This CLI is an Object Oriented Ruby application. It accesses (scrapes) 'two levels' of data from Goodreads web page, first, providing user a list of the winning books of each book category from a certain awards year. User can then make a choice and get detailed information about their selected book, or enter a different awards year and get a list of the winning books from that chosen year. When in the detailed view of a book, user can select to open a link to Goodreads website to read the reviews/information of that book.
 
-Object structures of the application will include a Goodreads CLI to interface with the user, a Scraper to scrape Goodreads website of the book details and a Book class to store and methods to access each of the books extracted.
-
-# Object Struture: 
+# Object Struture:
 
 1) CLI
   Command Line Interface to prompt users on what they would like to view. Default to list choice awards winners from previous year. User can then choose to view in more details, each of the winning books. Or, users can choose to list books from another year (users can choose from 2010 to previous year)
