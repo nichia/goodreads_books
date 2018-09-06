@@ -5,10 +5,6 @@ class GoodreadsBooks::CLI
   BASE_YEAR = 2010
   END_YEAR = Time.now.year - 1
 
-  def initialize
-    @@choice_awards = nil
-  end
-
   def call
     system "clear"
     puts ""
@@ -28,9 +24,9 @@ class GoodreadsBooks::CLI
       puts "Loading The Winners of #{awards_year} Goodreads Choice Awards Books..."
     end
 
-    @choice_awards = GoodreadsBooks::Scraper.find_or_create_by_year(awards_year)
+    @yearly_winners = GoodreadsBooks::Scraper.find_or_create_by_year(awards_year)
 
-    @book_count = GoodreadsBooks::Book.all_by_year(@choice_awards.awards_year).count
+    @book_count = GoodreadsBooks::Book.all_by_year(@yearly_winners.awards_year).count
   end #-- load_choice_awards --
 
   def main_menu
@@ -48,10 +44,8 @@ class GoodreadsBooks::CLI
       if input.downcase == "exit"
         break
       elsif input.to_i.between?(1, @book_count)
-        book = GoodreadsBooks::Book.all_by_year(@choice_awards.awards_year)[input.to_i - 1]
-        view_book(book)
+        view_book(GoodreadsBooks::Book.all_by_year(@yearly_winners.awards_year)[input.to_i - 1])
       elsif input.to_i.between?(BASE_YEAR, END_YEAR)
-
         load_choice_awards(input.to_i)
       else
         puts ""
@@ -65,17 +59,17 @@ class GoodreadsBooks::CLI
 
   def list_books
     puts ""
-    puts "---------- #{@choice_awards.awards_year} Goodreads Choice Awards Books ----------"
+    puts "---------- #{@yearly_winners.awards_year} Goodreads Choice Awards Books ----------"
     puts ""
 
-    GoodreadsBooks::Book.all_by_year(@choice_awards.awards_year).each.with_index(1) do |book, index|
+    GoodreadsBooks::Book.all_by_year(@yearly_winners.awards_year).each.with_index(1) do |book, index|
       puts "#{index}. #{book.category} - #{book.title}"
     end
   end #-- display_books --
 
   def view_book(book)
     puts ""
-    puts "---------- #{@choice_awards.awards_year} BEST #{book.category.upcase} Winner ----------"
+    puts "---------- #{@yearly_winners.awards_year} BEST #{book.category.upcase} Winner ----------"
     puts ""
     puts "Title:        #{book.title}"
     puts "Author:       #{book.author}"
@@ -85,7 +79,7 @@ class GoodreadsBooks::CLI
     puts "#{book.description}"
 
     puts ""
-    puts "Would you like to visit Goodreads website to view this book? Enter Y or N".colorize(:green)
+    puts "Would you like to open Goodreads website to view this book? Enter Y to open the website.".colorize(:green)
     input = gets.strip.downcase
 
     if input.downcase == "y"
