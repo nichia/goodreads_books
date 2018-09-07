@@ -30,29 +30,38 @@ class GoodreadsBooks::CLI
         books = GoodreadsBooks::Scraper.scrape_books(awards_year)
       end
     end
-
-    @book_count = GoodreadsBooks::Book.all_by_year(@awards_year).count
   end #-- load_choice_awards_books --
 
   def main_menu
+    input_valid = true
     input = nil
     while input != "exit"
+      book_count = GoodreadsBooks::Book.all_by_year(@awards_year).count
+
       list_books
+      if !input_valid
+        input_valid = true
+        puts ""
+        puts "Please enter a number between 1 and #{book_count} or a valid Choice Awards year".colorize(:red)
+      end
 
       puts ""
-      puts "Enter a number to view details of the book, or select another Choice Awards year (2010 onwards)."
-      puts "Type 'exit' to end the application."
+      puts "Enter a number to view details of the book, or select another Choice Awards year (2010 onwards).".colorize(:green)
+      puts "Type 'exit' to end the application.".colorize(:green)
       input = gets.strip
 
       if input.downcase == "exit"
         break
-      elsif input.to_i.between?(1, @book_count)
-        view_book(GoodreadsBooks::Book.all_by_year(@awards_year)[input.to_i - 1])
+      elsif input.to_i.between?(1, book_count)
+        book = GoodreadsBooks::Book.all_by_year(@awards_year)[input.to_i - 1]
+        if !book.author
+            GoodreadsBooks::Scraper.scrape_book_details(book)
+        end
+        view_book(book)
       elsif input.to_i.between?(BASE_YEAR, END_YEAR)
         load_choice_awards_books(input.to_i)
       else
-        puts ""
-        puts "Please enter a number between 1 and #{@book_count} or a valid Choice Awards year".colorize(:red)
+        input_valid = false
       end
     end
 

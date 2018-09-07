@@ -23,31 +23,7 @@ class GoodreadsBooks::Book
   end #-- save --
 
   def self.all_by_year(awards_year)
-    all.select { |book| book.awards_year == awards_year }
+    self.all.select { |book| book.awards_year == awards_year }
   end #-- find_by_year --
-
-  def author
-    get_book_details if !@author
-    @author
-  end #-- author --
-
-  def vote
-    get_book_details if !@vote
-    @vote
-  end #-- vote --
-
-  def description
-    get_book_details if !@description
-    @description
-  end #-- description --
-
-  def url
-    get_book_details if !@url
-    @url
-  end #-- url --
-
-  def get_book_details
-    GoodreadsBooks::Scraper.scrape_book_details(self)
-  end #-- get_book_details --
 
 end
