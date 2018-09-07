@@ -12,26 +12,29 @@ class GoodreadsBooks::CLI
     puts "           ----------------------------------------"
     puts ""
 
-    load_choice_awards
+    load_choice_awards_books
 
     main_menu
   end #-- call --
 
-  def load_choice_awards(awards_year = nil)
+  def load_choice_awards_books(awards_year = nil)
     if awards_year == nil
       puts "Loading The Latest Winners of Goodreads Choice Awards Books..."
+      books = GoodreadsBooks::Scraper.scrape_books
+      # set @awards_year to the awards_year first the first book
+      @awards_year = books[1].awards_year
     else
+      @awards_year = awards_year
       puts "Loading The Winners of #{awards_year} Goodreads Choice Awards Books..."
+      if GoodreadsBooks::Book.all_by_year(awards_year).empty?
+        books = GoodreadsBooks::Scraper.scrape_books(awards_year)
+      end
     end
 
-    @yearly_winners = GoodreadsBooks::Scraper.find_or_create_by_year(awards_year)
-
-    @book_count = GoodreadsBooks::Book.all_by_year(@yearly_winners.awards_year).count
-  end #-- load_choice_awards --
+    @book_count = GoodreadsBooks::Book.all_by_year(@awards_year).count
+  end #-- load_choice_awards_books --
 
   def main_menu
-    system "clear"
-
     input = nil
     while input != "exit"
       list_books
@@ -44,9 +47,9 @@ class GoodreadsBooks::CLI
       if input.downcase == "exit"
         break
       elsif input.to_i.between?(1, @book_count)
-        view_book(GoodreadsBooks::Book.all_by_year(@yearly_winners.awards_year)[input.to_i - 1])
+        view_book(GoodreadsBooks::Book.all_by_year(@awards_year)[input.to_i - 1])
       elsif input.to_i.between?(BASE_YEAR, END_YEAR)
-        load_choice_awards(input.to_i)
+        load_choice_awards_books(input.to_i)
       else
         puts ""
         puts "Please enter a number between 1 and #{@book_count} or a valid Choice Awards year".colorize(:red)
@@ -59,17 +62,17 @@ class GoodreadsBooks::CLI
 
   def list_books
     puts ""
-    puts "---------- #{@yearly_winners.awards_year} Goodreads Choice Awards Books ----------"
+    puts "---------- #{@awards_year} Goodreads Choice Awards Books ----------"
     puts ""
 
-    GoodreadsBooks::Book.all_by_year(@yearly_winners.awards_year).each.with_index(1) do |book, index|
+    GoodreadsBooks::Book.all_by_year(@awards_year).each.with_index(1) do |book, index|
       puts "#{index}. #{book.category} - #{book.title}"
     end
   end #-- display_books --
 
   def view_book(book)
     puts ""
-    puts "---------- #{@yearly_winners.awards_year} BEST #{book.category.upcase} Winner ----------"
+    puts "---------- #{@awards_year} BEST #{book.category.upcase} Winner ----------"
     puts ""
     puts "Title:        #{book.title}"
     puts "Author:       #{book.author}"
