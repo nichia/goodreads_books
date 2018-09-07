@@ -12,7 +12,7 @@ class GoodreadsBooks::Scraper
       awards_year = doc.css("head title").text.split(" ")[2].to_i
     else
       main_url = "#{BASE_URL}#{PAGE_URL}/best-books-#{awards_year}"
-      doc = Nokogiri::HTML(open(@main_url))
+      doc = Nokogiri::HTML(open(main_url))
     end
 
     # Category winners page: iterate through the best book of each category
