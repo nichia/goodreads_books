@@ -22,8 +22,8 @@ class GoodreadsBooks::Book
     self.class.all << self
   end #-- save --
 
-  def self.all_by_year(awards_year)
+  def self.find_all_by_year(awards_year)
     self.all.select { |book| book.awards_year == awards_year }
-  end #-- find_by_year --
+  end #-- self.find_all_by_year --
 
 end

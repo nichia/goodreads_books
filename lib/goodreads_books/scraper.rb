@@ -2,18 +2,18 @@ class GoodreadsBooks::Scraper
   BASE_URL = "https://www.goodreads.com"
   PAGE_URL = "/choiceawards"
 
-  def self.scrape_books(awards_year = nil)
+  def self.scrape_awards_year
     # if awards_year is missing from the url,
     # goodreads.com defaults to latest choice awards year
     # /best-books-#{latest awards year}"
-    if awards_year == nil
-      main_url = "#{BASE_URL}#{PAGE_URL}"
-      doc = Nokogiri::HTML(open(main_url))
-      awards_year = doc.css("head title").text.split(" ")[2].to_i
-    else
-      main_url = "#{BASE_URL}#{PAGE_URL}/best-books-#{awards_year}"
-      doc = Nokogiri::HTML(open(main_url))
-    end
+    main_url = "#{BASE_URL}#{PAGE_URL}"
+    html = open(main_url)
+    html.base_uri.to_s.split("-").last.to_i
+  end #-- self.scrape_awards_year
+
+  def self.scrape_books(awards_year)
+    main_url = "#{BASE_URL}#{PAGE_URL}/best-books-#{awards_year}"
+    doc = Nokogiri::HTML(open(main_url))
 
     # Category winners page: iterate through the best book of each category
     books = []
@@ -34,7 +34,7 @@ class GoodreadsBooks::Scraper
     end
 
     books
-  end #-- scrape_books --
+  end #-- self.scrape_books --
 
   def self.scrape_book_details(book)
     # Next level of scraping (get details of best book within each category_url)
@@ -46,12 +46,12 @@ class GoodreadsBooks::Scraper
 
     # goodreads description is encoded, so need to add .encode("ISO-8859-1") to print the special characters eg. â\u0080\u0099s in printable character of '
     # if self.awards_year < 2017, use the span tag, else there's no span tag so don't check for it
-    descript = book_doc.css(".gcaRightContainer .readable.stacked span")[1]
-    if descript
+    description = book_doc.css(".gcaRightContainer .readable.stacked span")[1]
+    if description
       book.description = book_doc.css(".gcaRightContainer .readable.stacked span")[1].text.encode("ISO-8859-1")
     else
       book.description = book_doc.css(".gcaRightContainer .readable.stacked").text.encode("ISO-8859-1")
     end
-  end #-- scrape_book_details --
+  end #-- self.scrape_book_details --
 
 end
