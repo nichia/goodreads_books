@@ -11,15 +11,11 @@ class GoodreadsBooks::CLI
     puts "           ----------------------------------------"
     puts ""
 
-    @latest_awards_year = get_awards_year
+    @latest_awards_year = GoodreadsBooks::Scraper.scrape_awards_year
     load_choice_awards_books(@latest_awards_year)
 
     main_menu
   end #-- call --
-
-  def get_awards_year
-    GoodreadsBooks::Scraper.scrape_awards_year
-  end #-- get_awards_year
 
   def load_choice_awards_books(awards_year)
     @awards_year = awards_year
@@ -34,7 +30,6 @@ class GoodreadsBooks::CLI
     input = nil
     while input != "exit"
       book_count = GoodreadsBooks::Book.find_all_by_year(@awards_year).count
-
       list_books
 
       if !valid_input
@@ -54,7 +49,7 @@ class GoodreadsBooks::CLI
       elsif input.to_i.between?(1, book_count)
         book = GoodreadsBooks::Book.find_all_by_year(@awards_year)[input.to_i - 1]
         if !book.author
-            GoodreadsBooks::Scraper.scrape_book_details(book)
+          GoodreadsBooks::Scraper.scrape_book_details(book)
         end
         view_book(book)
       elsif input.to_i.between?(BASE_YEAR, @latest_awards_year)
@@ -69,6 +64,7 @@ class GoodreadsBooks::CLI
   end #-- main_menu --
 
   def list_books
+    system "clear"
     puts ""
     puts "---------- #{@awards_year} Goodreads Choice Awards Books ----------"
     puts ""
@@ -79,6 +75,7 @@ class GoodreadsBooks::CLI
   end #-- display_books --
 
   def view_book(book)
+    system "clear"
     puts ""
     puts "---------- #{@awards_year} BEST #{book.category.upcase} Winner ----------"
     puts ""
