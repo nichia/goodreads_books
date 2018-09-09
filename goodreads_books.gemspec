@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["nichia@gmail.com"]
 
   spec.summary       = %q{Goodreads Choice Awards Books}
-  spec.description   = %q{Goodreads CLI gem is a command line application that lists the yearly Goodreads Choice Awards Winning Books.}
+  spec.description   = %q{Goodreads CLI gem is a command line application that lists the best books of Goodreads Choice Awards.}
   spec.homepage      = "https://github.com/nichia/goodreads_books.git"
   spec.license       = "MIT"
 

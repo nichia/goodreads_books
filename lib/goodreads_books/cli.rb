@@ -21,7 +21,7 @@ class GoodreadsBooks::CLI
     @awards_year = awards_year
     puts "Loading The Winners of #{awards_year} Goodreads Choice Awards Books..."
     if GoodreadsBooks::Book.find_all_by_year(awards_year).empty?
-      books = GoodreadsBooks::Scraper.scrape_books(awards_year)
+      GoodreadsBooks::Scraper.scrape_books(awards_year)
     end
   end #-- load_choice_awards_books --
 

@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    goodreads-books (0.1.2)
+    goodreads-books (0.1.3)
 
 GEM
   remote: https://rubygems.org/

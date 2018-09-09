@@ -15,9 +15,8 @@ class GoodreadsBooks::Scraper
     main_url = "#{BASE_URL}#{PAGE_URL}/best-books-#{awards_year}"
     doc = Nokogiri::HTML(open(main_url))
 
-    # Category winners page: iterate through the best book of each category
-    books = []
-    doc.css(".category.clearFix").each do |category|
+    # Category winners page: iterate through the best book of each category and collect the book information
+    doc.css(".category.clearFix").collect do |category|
       category_name = category.css("h4").text
       category_url = category.css("a").attr("href").text
       category_title = category.css("img").attr("alt").text
@@ -30,10 +29,8 @@ class GoodreadsBooks::Scraper
         :category_url => "#{BASE_URL}#{category_url}"
       }
 
-      books = GoodreadsBooks::Book.new_from_web_page(book_details)
+      GoodreadsBooks::Book.new_from_web_page(book_details)
     end
-
-    books
   end #-- self.scrape_books --
 
   def self.scrape_book_details(book)
