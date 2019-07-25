@@ -7,8 +7,8 @@ class GoodreadsBooks::CLI
   def call
     system "clear"
     puts ""
-    puts "---------- Welcome to Goodreads Choice Awards Books ----------"
-    puts "           ----------------------------------------"
+    puts "---------- Welcome to Goodreads Choice Awards ----------"
+    puts "           ----------------------------------"
     puts ""
 
     @latest_awards_year = GoodreadsBooks::Scraper.scrape_awards_year
@@ -19,7 +19,7 @@ class GoodreadsBooks::CLI
 
   def load_choice_awards_books(awards_year)
     @awards_year = awards_year
-    puts "Loading The Winners of #{awards_year} Goodreads Choice Awards Books..."
+    puts "Loading The Goodreads Choice Awards Winners for #{awards_year} ..."
     if GoodreadsBooks::Book.find_all_by_year(awards_year).empty?
       GoodreadsBooks::Scraper.scrape_books(awards_year)
     end
@@ -32,14 +32,14 @@ class GoodreadsBooks::CLI
       book_count = GoodreadsBooks::Book.find_all_by_year(@awards_year).count
       list_books
 
+      puts ""
       if !valid_input
-        puts ""
-        puts "Please enter a number between 1 and #{book_count}, or valid Choice Awards year, or 'exit' to end application.".colorize(:red)
+        puts "Please enter the book number to see more information:".colorize(:red)
+        puts "(You can also enter another Choice Awards year of 2010 or later, or type 'exit')".colorize(:red)
         valid_input = true
       else
-        puts ""
-        puts "Enter a number to view details of the book, or select another Choice Awards year (2010 onwards).".colorize(:green)
-        puts "Type 'exit' to end the application.".colorize(:green)
+        puts "Please enter the book number to see more information:".colorize(:green)
+        puts "(You can also enter another Choice Awards year of 2010 or later, or type 'exit')".colorize(:green)
       end
 
       input = gets.strip
@@ -60,17 +60,17 @@ class GoodreadsBooks::CLI
     end
 
     puts ""
-    puts "Thank you for using Goodreads Choice Awards Books."
+    puts "Thank you for using the Goodreads Choice Awards Application."
   end #-- main_menu --
 
   def list_books
     system "clear"
     puts ""
-    puts "---------- #{@awards_year} Goodreads Choice Awards Books ----------"
+    puts "---------- #{@awards_year} Goodreads Choice Awards Winners----------"
     puts ""
 
     GoodreadsBooks::Book.find_all_by_year(@awards_year).each.with_index(1) do |book, index|
-      puts "#{index}. #{book.category} - #{book.title}"
+      puts "#{index}. #{book.category}: #{book.title}"
     end
   end #-- display_books --
 
@@ -82,9 +82,7 @@ class GoodreadsBooks::CLI
     puts "Title:        #{book.title}"
     puts "Author:       #{book.author}"
     puts "Votes:        #{book.vote}"
-    puts ""
-    puts "       --- Description ---"
-    puts "#{book.description}"
+    puts "Description:  #{book.description}"
 
     puts ""
     puts "Would you like to open Goodreads website to view this book? Enter Y to open the website.".colorize(:green)

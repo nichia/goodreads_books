@@ -14,10 +14,11 @@ class GoodreadsBooks::Scraper
   def self.scrape_books(awards_year)
     main_url = "#{BASE_URL}#{PAGE_URL}/best-books-#{awards_year}"
     doc = Nokogiri::HTML(open(main_url))
+    # binding.pry
 
     # Category winners page: iterate through the best book of each category and collect the book information
     doc.css(".category.clearFix").collect do |category|
-      category_name = category.css("h4").text
+      category_name = category.css("h4").text.split("\n")[1]
       category_url = category.css("a").attr("href").text
       category_title = category.css("img").attr("alt").text
 
@@ -38,8 +39,8 @@ class GoodreadsBooks::Scraper
     book_doc = Nokogiri::HTML(open(book.category_url))
 
     book.vote = book_doc.css(".gcaRightContainer .gcaWinnerHeader").text.split(" ")[1]
-    book.author = book_doc.css(".gcaRightContainer h3 .gcaAuthor a.authorName").text
-    book.url = "#{BASE_URL}#{book_doc.css(".gcaRightContainer h3 a.winningTitle").attr("href").text}"
+    book.author = book_doc.css(".gcaRightContainer .gcaAuthor a.authorName").text
+    book.url = "#{BASE_URL}#{book_doc.css(".gcaRightContainer a.winningTitle").attr("href").text}"
 
     # goodreads description is encoded, so need to add .encode("ISO-8859-1") to print the special characters eg. â\u0080\u0099s in printable character of '
     # if self.awards_year < 2017, use the span tag, else there's no span tag so don't check for it
