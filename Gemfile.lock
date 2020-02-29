@@ -16,7 +16,7 @@ GEM
     pry (0.12.2)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
-    rake (10.5.0)
+    rake (12.3.3)
     rspec (3.8.0)
       rspec-core (~> 3.8.0)
       rspec-expectations (~> 3.8.0)
@@ -40,7 +40,7 @@ DEPENDENCIES
   goodreads-books!
   nokogiri (~> 1.8.5)
   pry (~> 0)
-  rake (~> 10.0)
+  rake (~> 12.3)
   rspec (~> 3.0)
 
 BUNDLED WITH
